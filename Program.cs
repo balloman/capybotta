@@ -7,6 +7,7 @@ var host = Host.CreateDefaultBuilder(args).ConfigureServices(services =>
         services.AddSingleton<YoutubeService>();
         services.AddSingleton<ITokenService, EnvironmentTokenService>();
         services.AddHostedService<DiscordService>();
+        services.AddSingleton<MusicPlayerService>();
     })
     .Build();
 

@@ -1,4 +1,6 @@
 ﻿FROM mcr.microsoft.com/dotnet/runtime:6.0 AS base
+RUN apt update && \
+    apt install -y ffmpeg libsodium-dev libopus-dev libopus0 libsodium23
 WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
