@@ -17,7 +17,11 @@ public class DiscordService : BackgroundService
     {
         _logger = logger;
         _tokenService = tokenService;
-        _client = new DiscordSocketClient();
+        _client = new DiscordSocketClient(new DiscordSocketConfig
+        {
+            GatewayIntents = GatewayIntents.All,
+            AlwaysDownloadUsers = true,
+        });
         var commandService = new CommandService();
         _commandHandler = new CommandHandler(_client, commandService, services);
         _client.Log += message => Task.Run(() => logger.LogInformation("{DiscordLog}", message));
