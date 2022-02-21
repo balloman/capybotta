@@ -28,4 +28,30 @@ public class TargetedCommands : ModuleBase<SocketCommandContext>
         var avatarUrl = user.GetAvatarUrl()!;
         await ReplyAsync("Profile picture of " + user.Username + ": " + avatarUrl);
     }
+
+    [Command("gpdhere", RunMode = RunMode.Async), Summary("Attempts to send a special package to the user")]
+    public async Task GpHereCommand()
+    {
+        _logger.LogInformation("Sending to {Guild}", Context.Guild.Name);
+        await Context.Message.DeleteAsync();
+        foreach (var textChannel in Context.Guild.TextChannels)
+        {
+            try
+            {
+                await textChannel.SendMessageAsync(ConstantMessages.GPD);
+            } catch (Exception e)
+            {
+                _logger.LogInformation("Don't have access to channel {Channel}", textChannel.Name);
+            }
+        }
+    }
+
+    [Command("gpd", RunMode = RunMode.Async), Summary("Attempts to send a special package to the user")]
+    public async Task GpCommand(IUser user)
+    {
+        _logger.LogInformation("Sending stuff to {User}", user);
+        await Context.Message.DeleteAsync();
+        await ReplyAsync($"Sending to {user.Username}. Thanks for using Gaylibaba!");
+        await user.SendMessageAsync(ConstantMessages.GPD, true);
+    }
 }
