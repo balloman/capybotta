@@ -26,7 +26,7 @@ public class TargetedCommands : ModuleBase<SocketCommandContext>
         }
         _logger.LogInformation("Grabbing avatar for user {User}", user.Username);
         var avatarUrl = user.GetAvatarUrl()!;
-        await ReplyAsync("Profile picture of " + user.Username + ": " + avatarUrl);
+        await ReplyAsync("Profile picture of " + user.Username + ": " + avatarUrl.Replace("size=128", "size=2048"));
     }
 
     [Command("gpdhere", RunMode = RunMode.Async), Summary("Attempts to send a special package to the user")]
